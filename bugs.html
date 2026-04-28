@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <title>Defect Showcase | RE-ENGINE</title>
+    <style>
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animate-gradient {
+            background-size: 200% auto;
+            animation: gradient 4s linear infinite;
+        }
+        #carousel-track {
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* 代码块专用字体和大小控制 */
+        .code-block-content {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px; /* 放大代码字体 */
+            line-height: 1.6;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200 overflow-x-hidden">
+
+<!-- 导航栏 -->
+<nav class="fixed w-full z-[100] bg-slate-950/70 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
+        <div class="flex items-center gap-3 shrink-0">
+            <div class="w-8 h-8 bg-gradient-to-br from-cyan-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                <span class="text-slate-950 text-xl font-black italic tracking-tighter">T</span>
+            </div>
+            <div class="text-xl font-black tracking-tighter italic bg-gradient-to-r from-cyan-400 via-indigo-300 to-cyan-400 bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text lang-item"
+                 data-en="Testing Refactoring Engines" data-zh="重构引擎自动化测试">
+                Testing Refactoring Engines
+            </div>
+        </div>
+        <div class="hidden lg:flex items-center space-x-8">
+            <a href="index.html" class="lang-item text-slate-300 hover:text-cyan-400 transition italic text-sm font-medium" data-en="Home" data-zh="首页">Home</a>
+            <a href="methodology.html" class="lang-item text-slate-300 hover:text-cyan-400 transition italic text-sm font-medium" data-en="Methodology" data-zh="方法论">Methodology</a>
+            <a href="bugs.html" class="lang-item text-cyan-400 transition italic text-sm font-medium underline underline-offset-8" data-en="Bugs" data-zh="缺陷展示">Bugs</a>
+            <a href="impact.html" class="lang-item text-slate-300 hover:text-cyan-400 transition italic text-sm font-medium" data-en="Impact" data-zh="影响力">Impact</a>
+            <a href="author.html" class="lang-item text-slate-300 hover:text-cyan-400 transition italic text-sm font-medium" data-en="Author" data-zh="关于作者">Author</a>
+        </div>
+        <div class="flex items-center gap-8 shrink-0">
+            <a href="papers.html" class="group relative px-6 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-bold rounded-full transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.3)] overflow-hidden">
+                <span class="relative z-10 italic lang-item" data-en="View Papers" data-zh="查看论文">View Papers</span>
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+            </a>
+            <button id="lang-btn" onclick="toggleLanguage()" class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-all group">
+                <svg class="w-4 h-4 text-cyan-400 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
+                <span class="text-[10px] font-bold tracking-widest uppercase text-slate-300" id="lang-label">中</span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<main class="pt-32 pb-20 px-6 max-w-[1400px] mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-8">
+        <div>
+            <h2 class="text-4xl font-black mb-4 italic lang-item" data-en="Defect Showcase" data-zh="典型缺陷案例展示">Defect Showcase</h2>
+            <p class="text-slate-500 italic lang-item" data-en="Real bugs detected by our frameworks in production-grade refactoring engines." data-zh="我们的框架在生产级重构引擎中发现的真实缺陷案例。">Real bugs detected by our frameworks in production-grade refactoring engines.</p>
+        </div>
+
+<!-- 右侧：三个链接按钮 -->
+        <div class="flex flex-wrap gap-3 shrink-0">   
+            <!-- 请务必确认当前目录下有 FSE.html 文件 -->
+            <a href="./FSE.html" target="_blank" class="px-4 py-2 bg-slate-900 border border-indigo-500/30 hover:border-indigo-500 rounded-xl text-xs font-bold text-indigo-400 transition-all flex items-center gap-2 group/btn">
+                <span>FSE '26 Bugs</span>
+                <svg class="w-3 h-3 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </a>
+            
+            <!-- 请务必确认当前目录下有 ISSTA.html 文件 -->
+            <a href="./ISSTA.html" target="_blank" class="px-4 py-2 bg-slate-900 border border-emerald-500/30 hover:border-emerald-500 rounded-xl text-xs font-bold text-emerald-400 transition-all flex items-center gap-2 group/btn">
+                <span>ISSTA '26 Bugs</span>
+                <svg class="w-3 h-3 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </a>
+
+            <!-- 请务必确认当前目录下有 ICSE.html 文件 -->
+            <a href="./ICSE.html" target="_blank" class="px-4 py-2 bg-slate-900 border border-cyan-500/30 hover:border-cyan-500 rounded-xl text-xs font-bold text-cyan-400 transition-all flex items-center gap-2 group/btn">
+                <span>ICSE '25 Bugs</span>
+                <svg class="w-3 h-3 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </a>
+        </div>
+</div>
+
+    </div>
+
+
+    <!-- 自动轮播容器 -->
+    <div class="relative group" id="carousel-container">
+        <div class="absolute top-0 left-0 w-full h-1 bg-white/5 z-20 rounded-full overflow-hidden">
+            <div id="carousel-progress" class="h-full bg-cyan-500 w-0"></div>
+        </div>
+
+        <div class="overflow-hidden rounded-[3rem] border border-white/10 shadow-2xl bg-slate-900/50 backdrop-blur-sm">
+            <div class="flex" id="carousel-track">
+                
+                <!-- Case 1: Pull Up Method -->
+                <div class="min-w-full p-8 md:p-12">
+                    <div class="flex items-center gap-4 mb-8">
+                        <span class="px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-black italic rounded-full border border-amber-500/30 uppercase lang-item" data-en="Compilation Error" data-zh="编译错误">Compilation Error</span>
+                        <h3 class="text-xl font-bold italic">Eclipse JDT Case #1868</h3>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8 mb-8 code-block-content">
+                        <div class="space-y-2">
+                            <div class="text-slate-500 text-[10px] uppercase font-bold tracking-widest lang-item" data-en="Before: Pull Up m() from C" data-zh="重构前: 从 C 类上移 m()">Before: Pull Up m() from C</div>
+                            <div class="bg-slate-950 p-6 rounded-2xl border border-white/5 overflow-x-auto h-72">
+                                <span class="text-indigo-400">class</span> B { }<br>
+                                <span class="text-indigo-400">class</span> A <span class="text-indigo-400">extends</span> B {<br>
+                                &nbsp;&nbsp;<span class="text-indigo-400">static public void</span> m() { }<br>
+                                }<br>
+                                <span class="text-indigo-400">class</span> C <span class="text-indigo-400">extends</span> B {<br>
+                                &nbsp;&nbsp;<span class="text-indigo-400">void</span> m() { }<br>
+                                }
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="text-red-400 text-[10px] uppercase font-bold tracking-widest lang-item" data-en="After: Illegal Shadowing in A" data-zh="重构后: A 类产生非法遮盖">After: Illegal Shadowing in A</div>
+                            <div class="bg-slate-950 p-6 rounded-2xl border border-red-500/20 overflow-x-auto h-72">
+                                <span class="text-indigo-400">class</span> B { <br>
+                                &nbsp;&nbsp;<span class="text-red-400 font-bold">void m() { }</span> <br>
+                                }<br>
+                                <span class="text-indigo-400">class</span> A <span class="text-indigo-400">extends</span> B {<br>
+                                &nbsp;&nbsp;<span class="bg-red-500/20 text-red-400 font-bold px-1 underline decoration-wavy">static public void m() { }</span><br>
+                                &nbsp;&nbsp;<span class="text-red-500/60">// Error: static m() cannot hide instance m()</span><br>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-white/5 rounded-2xl border border-white/5 italic text-slate-400 text-sm lang-item" 
+                         data-en="Analysis: The engine moved C.m() to parent B but failed to check siblings. In A, a static method cannot hide an inherited instance method from B, causing a compilation error."
+                         data-zh="分析：重构引擎将 C.m() 上移至父类 B，但未校验其他子类。在类 A 中，静态方法无法隐藏从 B 继承的同名实例方法，导致编译失败。">
+                        Analysis: The engine moved C.m() to parent B but failed to check siblings. In A, a static method cannot hide an inherited instance method from B, causing a compilation error.
+                    </div>
+                </div>
+
+                <!-- Case 2: Change Signature -->
+                <div class="min-w-full p-8 md:p-12">
+                    <div class="flex items-center gap-4 mb-8">
+                        <span class="px-3 py-1 bg-red-500/20 text-red-400 text-xs font-black italic rounded-full border border-red-500/30 uppercase lang-item" data-en="Semantic Drift" data-zh="语义漂移">Semantic Drift</span>
+                        <h3 class="text-xl font-bold italic">Eclipse JDT Case #1750</h3>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8 mb-8 code-block-content">
+                        <div class="space-y-2">
+                            <div class="text-slate-500 text-[10px] uppercase font-bold tracking-widest lang-item" data-en="Before: Rename foo2 to foo1" data-zh="重构前: 将 foo2 重命名为 foo1">Before: Rename foo2 to foo1</div>
+                            <div class="bg-slate-950 p-6 rounded-2xl border border-white/5 overflow-x-auto h-72">
+                                <span class="text-indigo-400">static void</span> foo1(Number n) { out(<span class="text-emerald-400">"1"</span>); }<br>
+                                <span class="text-indigo-400">static void</span> foo2(Long i) { out(<span class="text-emerald-400">"2"</span>); }<br>
+                                <span class="text-indigo-400">public static void</span> main(String[] args) {<br>
+                                &nbsp;&nbsp;<span class="text-indigo-400">long</span> n = 0; <span class="text-cyan-400">foo1(n);</span><br>
+                                }
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="text-red-400 text-[10px] uppercase font-bold tracking-widest lang-item" data-en="After: Overload Resolution Changed" data-zh="重构后: 重载解析发生改变">After: Overload Resolution Changed</div>
+                            <div class="bg-slate-950 p-6 rounded-2xl border border-red-500/20 overflow-x-auto h-72">
+                                <span class="text-indigo-400">static void</span> foo1(Number n) { out(<span class="text-emerald-400">"1"</span>); }<br>
+                                <span class="text-red-400 font-bold">static void foo1(Long i) { out("2"); }</span><br>
+                                <span class="text-indigo-400">public static void</span> main(String[] args) {<br>
+                                &nbsp;&nbsp;<span class="text-indigo-400">long</span> n = 0; <span class="bg-red-500/20 text-red-400 px-1 font-bold">foo1(n);</span><br>
+                                &nbsp;&nbsp;<span class="text-red-500/60">// Binds to foo1(Long), output changes to "2"</span><br>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-white/5 rounded-2xl border border-white/5 italic text-slate-400 text-sm lang-item" 
+                         data-en="Analysis: Renaming foo2 to foo1 introduced a more specific overload for the call in main(). The program behavior silently changed, leading to semantic drift."
+                         data-zh="分析：将 foo2 改名为 foo1 后，main 中的调用点找到了更匹配的重载版本。程序输出从 '1' 变为 '2'，发生了隐蔽的语义漂移。">
+                        Analysis: Renaming foo2 to foo1 introduced a more specific overload for the call in main(). The program behavior silently changed, leading to semantic drift.
+                    </div>
+                </div>
+
+                <!-- Case 3: Inline Method -->
+                <div class="min-w-full p-8 md:p-12">
+                    <div class="flex items-center gap-4 mb-8">
+                        <span class="px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-black italic rounded-full border border-amber-500/30 uppercase lang-item" data-en="Compilation Error" data-zh="编译错误">Compilation Error</span>
+                        <h3 class="text-xl font-bold italic">Refactoring Case #2314</h3>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8 mb-8 code-block-content">
+                        <div class="space-y-2">
+                            <div class="text-slate-500 text-[10px] uppercase font-bold tracking-widest lang-item" data-en="Before: Inline method()" data-zh="重构前: 内联 method() 方法">Before: Inline method()</div>
+                            <div class="bg-slate-950 p-6 rounded-2xl border border-white/5 overflow-x-auto h-72">
+                                <span class="text-indigo-400">static class</span> Condition1 {<br>
+                                &nbsp;&nbsp;<span class="text-indigo-400">static int</span> method() { <span class="text-indigo-400">return</span> 42; }<br>
+                                }<br>
+                                VoidFunction v = <span class="text-cyan-400">Condition1::method;</span>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="text-red-400 text-[10px] uppercase font-bold tracking-widest lang-item" data-en="After: Broken Method Reference" data-zh="重构后: 方法引用失效">After: Broken Method Reference</div>
+                            <div class="bg-slate-950 p-6 rounded-2xl border border-red-500/20 overflow-x-auto h-72">
+                                <span class="text-indigo-400">static class</span> Condition1 { }<br>
+                                VoidFunction v = <span class="text-red-400 underline decoration-wavy font-bold">Condition1::method;</span><br>
+                                <span class="text-red-500/60">// Error: method() undefined in Condition1</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-white/5 rounded-2xl border border-white/5 italic text-slate-400 text-sm lang-item" 
+                         data-en="Analysis: The engine failed to update Java 8+ method references. Deleting the method without checking its reference usage breaks functional interface bindings."
+                         data-zh="分析：重构引擎在内联方法时未能识别 Java 8+ 的方法引用。直接删除被引用的方法导致调用端出现悬空引用，程序无法编译。">
+                        Analysis: The engine failed to update Java 8+ method references. Deleting the method without checking its reference usage breaks functional interface bindings.
+                    </div>
+                </div>
+
+                <!-- Case 4: Move Method -->
+                <div class="min-w-full p-8 md:p-12">
+                    <div class="flex items-center gap-4 mb-8">
+                        <span class="px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-black italic rounded-full border border-amber-500/30 uppercase lang-item" data-en="Compilation Error" data-zh="编译错误">Compilation Error</span>
+                        <h3 class="text-xl font-bold italic">Refactoring Case #2307</h3>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8 mb-8 code-block-content">
+                        <div class="space-y-2">
+                            <div class="text-slate-500 text-[10px] uppercase font-bold tracking-widest lang-item" data-en="Before: Move m() to TargetClass" data-zh="重构前: 将 m() 移动至 TargetClass">Before: Move m() to TargetClass</div>
+                            <div class="bg-slate-950 p-6 rounded-2xl border border-white/5 overflow-x-auto h-72">
+                                <span class="text-indigo-400">void</span> m(TargetClass&lt;String&gt; target) {<br>
+                                &nbsp;&nbsp;String v = target.genericField;<br>
+                                }
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="text-red-400 text-[10px] uppercase font-bold tracking-widest lang-item" data-en="After: Generic Type Mismatch" data-zh="重构后: 泛型类型不匹配">After: Generic Type Mismatch</div>
+                            <div class="bg-slate-950 p-6 rounded-2xl border border-red-500/20 overflow-x-auto h-72">
+                                <span class="text-indigo-400">class</span> TargetClass&lt;T&gt; {<br>
+                                &nbsp;&nbsp;<span class="text-indigo-400">void</span> m() {<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-red-400 font-bold underline">String v = genericField;</span><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-red-500/60">// Error: cannot convert from T to String</span><br>
+                                &nbsp;&nbsp;}<br>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-white/5 rounded-2xl border border-white/5 italic text-slate-400 text-sm lang-item" 
+                         data-en="Analysis: Moving a method into a generic class caused the loss of concrete type information. The field access changed from String to T, breaking type safety."
+                         data-zh="分析：将方法移动至泛型类时，具体的类型信息丢失。原本合法的字段访问在迁移后变成了泛型类型 T，导致类型不匹配错误。">
+                        Analysis: Moving a method into a generic class caused the loss of concrete type information. The field access changed from String to T, breaking type safety.
+                    </div>
+                </div>
+
+                <!-- Case 5: Extract Method -->
+                <div class="min-w-full p-8 md:p-12">
+                    <div class="flex items-center gap-4 mb-8">
+                        <span class="px-3 py-1 bg-red-500/20 text-red-400 text-xs font-black italic rounded-full border border-red-500/30 uppercase lang-item" data-en="Semantic Drift" data-zh="语义漂移">Semantic Drift</span>
+                        <h3 class="text-xl font-bold italic">Refactoring Case #1757</h3>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8 mb-8 code-block-content">
+                        <div class="space-y-2">
+                            <div class="text-slate-500 text-[10px] uppercase font-bold tracking-widest lang-item" data-en="Before: Extract to m()" data-zh="重构前: 提取代码块为 m()">Before: Extract to m()</div>
+                            <div class="bg-slate-950 p-6 rounded-2xl border border-white/5 overflow-x-auto h-72">
+                                <span class="text-indigo-400">class</span> B <span class="text-indigo-400">extends</span> A {<br>
+                                &nbsp;&nbsp;<span class="text-indigo-400">void</span> f() { m(<span class="text-emerald-400">"1"</span>); } <span class="text-slate-500">// Calls A.m</span><br>
+                                }
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="text-red-400 text-[10px] uppercase font-bold tracking-widest lang-item" data-en="After: Accidental Hiding" data-zh="重构后: 意外的方法屏蔽">After: Accidental Hiding</div>
+                            <div class="bg-slate-950 p-6 rounded-2xl border border-red-500/20 overflow-x-auto h-72">
+                                <span class="text-indigo-400">class</span> B <span class="text-indigo-400">extends</span> A {<br>
+                                &nbsp;&nbsp;<span class="text-indigo-400">void</span> f() { <span class="bg-red-500/20 text-red-400 font-bold px-1">m("1");</span> } <span class="text-red-500">// Now calls B.m!</span><br>
+                                &nbsp;&nbsp;<span class="text-indigo-400">private static void</span> m(String s) { }<br>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-white/5 rounded-2xl border border-white/5 italic text-slate-400 text-sm lang-item" 
+                         data-en="Analysis: Extracting a method with a name that already exists in the parent class redirect existing calls, changing the program logic."
+                         data-zh="分析：提取的新方法名与父类方法冲突。新生成的 m(String) 比父类的 m(Object) 更匹配调用点，导致原有调用被意外“拦截”。">
+                        Analysis: Extracting a method with a name that already exists in the parent class redirect existing calls, changing the program logic.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-slate-900/80 border border-white/10 flex items-center justify-center hover:bg-cyan-500 transition-all z-30">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </button>
+        <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-slate-900/80 border border-white/10 flex items-center justify-center hover:bg-cyan-500 transition-all z-30">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </button>
+    </div>
+
+    <!-- 缺陷分类体系 -->
+    <section class="mt-32">
+        <h2 class="text-2xl font-bold mb-12 italic border-l-4 border-cyan-500 pl-6 lang-item" data-en="Bug Taxonomy" data-zh="缺陷分类体系">Bug Taxonomy</h2>
+        <div class="grid md:grid-cols-3 gap-8 text-left">
+            <div class="p-8 rounded-[2rem] bg-gradient-to-b from-slate-900 to-slate-950 border border-white/5">
+                <h4 class="text-lg font-bold mb-3 lang-item text-red-400" data-en="Semantic Drift" data-zh="语义不一致">Semantic Drift</h4>
+                <p class="text-sm text-slate-500 leading-relaxed italic lang-item" data-en="Refactoring changes the program's runtime behavior." data-zh="重构改变了程序的运行时行为，导致原本正确的逻辑输出错误结果。">Refactoring changes the program's runtime behavior.</p>
+            </div>
+            <div class="p-8 rounded-[2rem] bg-gradient-to-b from-slate-900 to-slate-950 border border-white/5">
+                <h4 class="text-lg font-bold mb-3 lang-item text-amber-400" data-en="Compilation Error" data-zh="编译错误">Compilation Error</h4>
+                <p class="text-sm text-slate-500 leading-relaxed italic lang-item" data-en="The refactored code contains syntax or linkage errors." data-zh="重构后的代码产生语法错误或非法的作用域屏蔽。">The refactored code contains syntax or linkage errors.</p>
+            </div>
+            <div class="p-8 rounded-[2rem] bg-gradient-to-b from-slate-900 to-slate-950 border border-white/5">
+                <h4 class="text-lg font-bold mb-3 lang-item text-indigo-400" data-en="Engine Crash" data-zh="引擎崩溃">Engine Crash</h4>
+                <p class="text-sm text-slate-500 leading-relaxed italic lang-item" data-en="The refactoring engine terminates unexpectedly." data-zh="由于处理复杂的边缘情况时未捕获异常，导致重构引擎直接崩溃。">The refactoring engine terminates unexpectedly.</p>
+            </div>
+        </div>
+    </section>
+<!-- 工作流展示板块 -->
+<section class="mt-32 p-12 bg-slate-900/20 rounded-[3rem] border border-white/5 relative overflow-hidden">
+    <div class="absolute -right-20 -top-20 w-64 h-64 bg-cyan-500/10 blur-[100px]"></div>
+    <div class="relative z-10">
+        <h2 class="text-2xl font-bold mb-12 italic text-center lang-item" 
+            data-en="How We Find These Bugs?" 
+            data-zh="我们如何捕获这些缺陷？">How We Find These Bugs?</h2>
+        <div class="flex flex-col md:flex-row items-center justify-between gap-8 max-w-4xl mx-auto">
+            <div class="flex flex-col items-center text-center">
+                <div class="w-16 h-16 rounded-2xl bg-slate-800 border border-white/10 flex items-center justify-center mb-4 text-cyan-400">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.675.337a4 4 0 01-2.586.345l-2.387-.477a2 2 0 00-2.238 1.431l-2 6a2 2 0 001.43 2.542l.893.111a8 8 0 005.351-1.346l.82-.614a4 4 0 012.734-.818l.82.614a8 8 0 005.351 1.346l.893-.111a2 2 0 001.43-2.542l-2-6z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                </div>
+                <span class="text-sm font-bold lang-item" data-en="Program Synthesis" data-zh="自动化程序合成">Program Synthesis</span>
+            </div>
+            <div class="hidden md:block w-12 h-[2px] bg-slate-800"></div>
+            <div class="flex flex-col items-center text-center">
+                <div class="w-16 h-16 rounded-2xl bg-slate-800 border border-white/10 flex items-center justify-center mb-4 text-indigo-400">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                </div>
+                <span class="text-sm font-bold lang-item" data-en="Transformation" data-zh="重构引擎变换">Transformation</span>
+            </div>
+            <div class="hidden md:block w-12 h-[2px] bg-slate-800"></div>
+            <div class="flex flex-col items-center text-center">
+                <div class="w-16 h-16 rounded-2xl bg-slate-800 border border-white/10 flex items-center justify-center mb-4 text-emerald-400">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                </div>
+                <span class="text-sm font-bold lang-item" data-en="Oracle Checking" data-zh="等价性校验">Oracle Checking</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <footer class="mt-40 pt-20 border-t border-white/5 text-center text-slate-600 text-[10px] font-mono uppercase tracking-[0.3em] pb-10">
+        © 2026 RE-ENGINE Research Group | BITSE Lab
+    </footer>
+</main>
+
+<script>
+    // 初始设为英文 (Initial state: English)
+    let currentLang = 'en';
+    let currentIndex = 0;
+    const track = document.getElementById('carousel-track');
+    const totalSlides = 5;
+    let autoPlayInterval;
+    const intervalTime = 6000; 
+
+    function toggleLanguage() {
+        currentLang = currentLang === 'zh' ? 'en' : 'zh';
+        document.querySelectorAll('.lang-item').forEach(item => {
+            item.textContent = item.getAttribute(`data-${currentLang}`);
+        });
+        document.getElementById('lang-label').textContent = currentLang === 'zh' ? 'EN' : '中';
+    }
+
+    function updateSlide() {
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        resetProgress();
+    }
+
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        updateSlide();
+    }
+
+    function prevSlide() {
+        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        updateSlide();
+    }
+
+    function resetProgress() {
+        const progress = document.getElementById('carousel-progress');
+        progress.style.transition = 'none';
+        progress.style.width = '0%';
+        setTimeout(() => {
+            progress.style.transition = `width ${intervalTime}ms linear`;
+            progress.style.width = '100%';
+        }, 10);
+    }
+
+    function startAutoPlay() {
+        resetProgress();
+        autoPlayInterval = setInterval(nextSlide, intervalTime);
+    }
+
+    function stopAutoPlay() {
+        clearInterval(autoPlayInterval);
+        document.getElementById('carousel-progress').style.width = '0%';
+    }
+
+    const container = document.getElementById('carousel-container');
+    container.addEventListener('mouseenter', stopAutoPlay);
+    container.addEventListener('mouseleave', startAutoPlay);
+
+    startAutoPlay();
+</script>
+
+</body>
+</html>

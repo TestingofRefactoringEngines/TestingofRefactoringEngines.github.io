@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表格示例</title>
+    <style>
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Java Refactoring Engines Testing</h1>
+    <table id="tab" border="1" cellpadding="5">
+        <p style="font-family: Arial, sans-serif; font-size: 22px;"> We anonymously submitted the discovered errors to IDEs. The following list of bugs is provided for reviewers to check.
+        </p>
+        <tr><th rowspan="2"></th> <th rowspan="2">Refactoring Types</th> <th colspan="2"><a href="http://www.eclipse.org/jdt/">Eclipse</a></th> <th colspan="2"><a href="http://www.jetbrains.com/idea/">IntelliJ IDEA</a><br/></th><th colspan="2"><a href="">VScode-Java</a><br/></th></th><th colspan="2"><a href="">Comate</a><br/></th><th colspan="2"><a href="">JDeodorant</a><br/></th><th colspan="2"><a href="">CodeArts</a><br/></th></th><th colspan="2"><a href="">NetBeans</a><br/></th></tr>
+<tr> <th>bug id</th> <th>bug status</th> <th>bug id</th> <th>bug status</th><th>bug id</th> <th>bug status</th><th>bug id</th> <th>bug status</th><th>bug id</th> <th>bug status</th><th>bug id</th> <th>bug status</th><th>bug id</th> <th>bug status</th></tr>
+        <tr><td align="right">2.</td> <td>MoveMethod</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/2307">2307</a></td> <td align="center">no-assigned</td><td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td> <td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td></tr>
+        <tr><td align="right">2.</td> <td>MoveMethod</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/2577">2577</a></td> <td align="center">no-assigned</td><td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td><td align="center">-</td><td align="center">-</td>  <td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td></tr>
+        <tr><td align="right">3.</td> <td>MoveMethod</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/2308">2308</a></td> <td align="center">no-assigned</td> <td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-375385/The-Move-Method-refactoring-caused-an-error-related-to-The-declared-type-of-the-explicit-this-parameter.">375385</a></td> <td align="center">no-assigned</td><td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td> <td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td></tr>
+        <tr><td align="right">4.</td> <td>MoveMethod</td> <td align="center">-</a></td> <td align="center">-</td> <td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-375386/Moving-a-method-containing-the-super-keyword-caused-a-refactoring-error">375386</a></td> <td align="center">no-assigned</td><td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td> <td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td></tr>
+        <tr><td align="right">5.</td> <td>MoveMethod</td> <td align="center">-</a></td> <td align="center">-</td> <td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-375387/Moving-the-method-to-an-interface-caused-a-compilation-error">375387</a></td> <td align="center">no-assigned</td><td align="center">-</td> <td align="center">-</td><td align="center">-</td><td align="center">-</td>  <td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td></tr>
+        <tr><td align="right">6.</td> <td>MoveMethod</td> <td align="center">-</a></td> <td align="center">-</td> <td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-375388/Moving-a-method-from-an-abstract-class-caused-a-syntax-error">375388</a></td> <td align="center">no-assigned</td><td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td> <td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td></tr>
+        <tr><td align="right">7.</td> <td>PullUpMethod</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/2312">2312</a></td> <td align="center">no-assigned</td> <td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-375390/Pulling-up-the-method-caused-a-syntax-error">375390</a></td> <td align="center">no-assigned</td><td align="center">-</td> <td align="center">-</td><td align="center">-</td><td align="center">-</td> <td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td></tr>
+        <tr><td align="right">8.</td> <td>PullUpMethod</td> <td align="center">-</a></td> <td align="center">-</td> <td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-375392/Pull-up-method-causes-not-match-the-enclosing-class-type">375392</a></td> <td align="center">no-assigned</td><td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td> <td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td></tr>
+        <tr><td align="right">9.</td> <td>PullDownMethod</td> <td align="center">-</a></td> <td align="center">-</td> <td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-375393/Pulling-down-the-method-caused-a-method-parameter-type-error">375393</a></td> <td align="center">no-assigned</td><td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td> <td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td></tr>
+        <tr><td align="right">11.</td> <td>MoveMethod</td> <td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td><td align="center"><a href="https://github.com/redhat-developer/vscode-java/issues/4300">4300</a></td> <td align="center">-</td><td align="center"><a href="https://github.com/redhat-developer/vscode-java/issues/4300">1</a></td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td></tr>
+        <tr><td align="right">12.</td> <td>MoveMethod</td> <td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td><td align="center"><a href="https://github.com/redhat-developer/vscode-java/issues/4299">4299</a></td> <td align="center">-</td><td align="center"><a href="https://github.com/redhat-developer/vscode-java/issues/4299">2</a></td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td></tr>
+        <tr><td align="right">13.</td> <td>MoveMethod</td> <td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td><td align="center"><a>-</a></td> <td align="center">-</td><td align="center"><a >-</a></td> <td align="center">-</td><td align="center"><a href="https://github.com/tsantalis/JDeodorant/issues/89">89</a></td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td></tr>
+        <tr><td align="right">14.</td> <td>MoveMethod</td> <td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td><td align="center"><a>-</a></td> <td align="center">-</td><td align="center"><a >-</a></td> <td align="center">-</td><td align="center"><a href="https://github.com/tsantalis/JDeodorant/issues/90">90</a></td> <td align="center">-</td><td align="center">-</td> <td align="center">-</td></tr>
+    </table>
+</body>
+</html>

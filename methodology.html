@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <title>Methodology | RE-ENGINE</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #020617; scroll-behavior: smooth; }
+        .method-card { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .method-card:hover { transform: scale(1.005); border-color: rgba(255,255,255,0.2); }
+        
+        .bg-grid {
+            background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .overview-card {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .overview-card:hover {
+            background: rgba(51, 65, 85, 0.8);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="text-slate-200 antialiased bg-grid">
+
+<!-- Navigation -->
+<nav class="fixed w-full z-[100] bg-slate-950/70 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
+        <div class="flex items-center gap-3 shrink-0">
+            <div class="w-8 h-8 bg-gradient-to-br from-cyan-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                <span class="text-slate-950 text-xl font-black italic tracking-tighter">T</span>
+            </div>
+            <div class="text-xl font-black tracking-tighter italic bg-gradient-to-r from-cyan-400 via-indigo-300 to-cyan-400 bg-clip-text text-transparent lang-item"
+                 data-en="Testing Refactoring Engines" data-zh="重构引擎自动化测试">
+                Testing Refactoring Engines
+            </div>
+        </div>
+        <div class="hidden lg:flex items-center space-x-8">
+            <a href="index.html" class="lang-item text-slate-300 hover:text-cyan-400 transition italic text-sm font-medium" data-en="Home" data-zh="首页">Home</a>
+            <a href="methodology.html" class="lang-item text-cyan-400 transition italic text-sm font-medium underline underline-offset-8" data-en="Methodology" data-zh="方法论">Methodology</a>
+            <a href="bugs.html" class="lang-item text-slate-300 hover:text-cyan-400 transition italic text-sm font-medium" data-en="Bugs" data-zh="缺陷展示">Bugs</a>
+            <a href="impact.html" class="lang-item text-slate-300 hover:text-cyan-400 transition italic text-sm font-medium" data-en="Impact" data-zh="影响力">Impact</a>
+            <a href="author.html" class="lang-item text-slate-300 hover:text-cyan-400 transition italic text-sm font-medium" data-en="Author" data-zh="关于作者">Author</a>
+        </div>
+        <div class="flex items-center gap-8 shrink-0">
+            <a href="papers.html" class="group relative px-6 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-bold rounded-full transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.3)] overflow-hidden">
+                <span class="relative z-10 italic lang-item" data-en="View Papers" data-zh="查看论文">View Papers</span>
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+            </a>
+            <button id="lang-btn" onclick="toggleLanguage()" class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-all group">
+                <svg class="w-4 h-4 text-cyan-400 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
+                <span class="text-[10px] font-bold tracking-widest uppercase text-slate-300" id="lang-label">中</span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<main class="max-w-[1500px] mx-auto px-6 pt-28 pb-12">
+    <header class="mb-12 relative">
+        <div class="absolute -left-4 top-0 w-1 h-10 bg-cyan-500 shadow-[0_0_15px_#06b6d4]"></div>
+        <h1 class="text-4xl font-black italic tracking-tighter mb-2 lang-item" data-en="Methodology Overview" data-zh="核心研究框架">Methodology Overview</h1>
+        <p class="text-slate-500 italic max-w-3xl text-sm lang-item" 
+           data-en="Automated testing ecosystem powered by dual-enhancement mechanisms: Historical Defect Driven & Semantic Constraint Guidance." 
+           data-zh="由“历史缺陷驱动”与“语义约束引导”双重增强机制驱动的重构引擎自动化测试生态。">Automated testing ecosystem powered by dual-enhancement mechanisms: Historical Defect Driven & Semantic Constraint Guidance.</p>
+    </header>
+
+    <!-- Overview Cards -->
+    <section class="mb-20">
+        <div class="grid lg:grid-cols-3 gap-6">
+            <a href="#healtest" class="overview-card group rounded-[2rem] p-8 hover:shadow-[0_0_30px_rgba(34,211,238,0.15)] block">
+                <div class="w-10 h-10 bg-cyan-500/20 rounded-xl flex items-center justify-center text-cyan-400 font-black mb-6 border border-cyan-500/30">1</div>
+                <h3 class="text-xl font-bold text-white mb-3 italic lang-item" data-zh="历史特征增强" data-en="History Augmentation">History Augmentation</h3>
+                <p class="text-slate-400 text-xs leading-relaxed italic lang-item" 
+                   data-zh="提取历史缺陷特征，引导LLM定向合成高价值测试程序。" 
+                   data-en="Extracting bug features to guide LLM toward high-value test synthesis.">Extracting bug features to guide LLM toward high-value test synthesis.</p>
+            </a>
+
+            <a href="#enginetest" class="overview-card group rounded-[2rem] p-8 hover:shadow-[0_0_30px_rgba(129,140,248,0.15)] block">
+                <div class="w-10 h-10 bg-indigo-500/20 rounded-xl flex items-center justify-center text-indigo-400 font-black mb-6 border border-indigo-500/30">2</div>
+                <h3 class="text-xl font-bold text-white mb-3 italic lang-item" data-zh="逻辑跨类迁移" data-en="Logic Migration">Logic Migration</h3>
+                <p class="text-slate-400 text-xs leading-relaxed italic lang-item" 
+                   data-zh="打破重构壁垒，将已知缺陷迁移至新场景，实现挖掘倍增。" 
+                   data-en="Migrating bug patterns across types for multiplier effects.">Migrating bug patterns across types for multiplier effects.</p>
+            </a>
+
+            <a href="#reloctest" class="overview-card group rounded-[2rem] p-8 hover:shadow-[0_0_30px_rgba(16,185,129,0.15)] block">
+                <div class="w-10 h-10 bg-emerald-500/20 rounded-xl flex items-center justify-center text-emerald-400 font-black mb-6 border border-emerald-500/30">3</div>
+                <h3 class="text-xl font-bold text-white mb-3 italic lang-item" data-zh="语义前置过滤" data-en="Semantic Pruning">Semantic Pruning</h3>
+                <p class="text-slate-400 text-xs leading-relaxed italic lang-item" 
+                   data-zh="系统性遍历语法骨架并过滤无效样本，直击重构逻辑核心。" 
+                   data-en="Pruning invalid samples to target core refactoring logic.">Pruning invalid samples to target core refactoring logic.</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Details -->
+    <div class="space-y-20">
+        
+        <!-- 01 HealTest Section -->
+        <div id="healtest" class="relative grid grid-cols-1 lg:grid-cols-12 gap-10 p-10 rounded-[2.5rem] border border-white/5 bg-slate-900/40 backdrop-blur-md">
+            <div class="lg:col-span-4 space-y-8">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[10px] font-bold uppercase tracking-widest mb-4 italic">Phase 01: History-Driven</div>
+                    <h2 class="text-3xl font-black italic text-white lang-item leading-tight" data-en="HealTest: Feature Augmentation" data-zh="HealTest: 缺陷特征增强方法">HealTest: Feature Augmentation</h2>
+                </div>
+                
+                <div class="space-y-6">
+                    <p class="text-slate-400 leading-relaxed italic text-sm text-justify lang-item" 
+                       data-en="By analyzing thousands of open-source bug reports, we extract fine-grained code features that trigger engine crashes. These features serve as 'genetic markers' for LLMs to generate targeted, complex test cases." 
+                       data-zh="通过分析数千份开源缺陷报告，提取诱发引擎崩溃的细粒度代码特征。这些特征作为“导航信号”引导 LLM 定向合成具有高杀伤力的测试程序，从源头提升检错效率。">By analyzing thousands of open-source bug reports, we extract fine-grained code features that trigger engine crashes. These features serve as 'genetic markers' for LLMs to generate targeted, complex test cases.</p>
+                    
+                    <div class="p-5 bg-slate-950/50 rounded-2xl border border-white/5 space-y-4">
+                        <h4 class="text-xs font-bold text-cyan-500 uppercase tracking-widest lang-item" data-en="Workflow Detail" data-zh="核心工作流">Workflow Detail</h4>
+                        <ul class="text-[11px] space-y-3 text-slate-400 italic">
+                            <li class="flex items-start gap-2"><span class="text-cyan-400">●</span> <span class="lang-item" data-en="Automated parsing of bug reports to build a feature library." data-zh="自动解析 Bug 报告，构建细粒度特征库（Feature Library）。">Automated parsing of bug reports to build a feature library.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-cyan-400">●</span> <span class="lang-item" data-en="Injection of features into Few-shot prompts for directed synthesis." data-zh="将特定缺陷特征注入提示词，引导模型生成包含特定模式的代码。">Injection of features into Few-shot prompts for directed synthesis.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-cyan-400">●</span> <span class="lang-item" data-en="Differential testing across 4 mainstream engines to identify flaws." data-zh="在四大主流引擎上执行差分测试，通过行为差异锁定未知漏洞。">Differential testing across 4 mainstream engines to identify flaws.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8">
+                <div class="relative rounded-2xl border border-white/10 bg-slate-950 p-2 shadow-2xl overflow-hidden h-full flex items-center justify-center group/img">
+                    <img src="./1ICSE.png" alt="HealTest" class="w-[85%] h-auto object-contain block group-hover:scale-[1.01] transition-transform duration-700">
+                </div>
+            </div>
+        </div>
+
+        <!-- 02 EngineTest Section -->
+        <div id="enginetest" class="relative grid grid-cols-1 lg:grid-cols-12 gap-10 p-10 rounded-[2.5rem] border border-white/5 bg-slate-900/40 backdrop-blur-md">
+            <div class="lg:col-span-8 order-2 lg:order-1">
+                <div class="relative rounded-2xl border border-white/10 bg-slate-950 p-2 shadow-2xl overflow-hidden h-full flex items-center justify-center group/img">
+                    <img src="./1FSE.png" alt="EngineTest" class="w-[85%] h-auto object-contain block group-hover:scale-[1.01] transition-transform duration-700">
+                </div>
+            </div>
+
+            <div class="lg:col-span-4 space-y-8 order-1 lg:order-2">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[10px] font-bold uppercase tracking-widest mb-4 italic">Phase 02: Logic Migration</div>
+                    <h2 class="text-3xl font-black italic text-white lang-item leading-tight" data-en="EngineTest: Cross-Type Migration" data-zh="EngineTest: 跨重构类型迁移方法">EngineTest: Cross-Type Migration</h2>
+                </div>
+                
+                <div class="space-y-6">
+                    <p class="text-slate-400 leading-relaxed italic text-sm text-justify lang-item" 
+                       data-en="Different refactoring types often share underlying defect mechanisms. EngineTest migrates failed programs from one type to another using LLMs to maximize bug data utility." 
+                       data-zh="不同重构类型常由相同的底层逻辑缺陷触发。EngineTest 利用大模型将已知的缺陷程序“重映射”至其他重构类型，实现测试资源的倍增式利用。">Different refactoring types often share underlying defect mechanisms. EngineTest migrates failed programs from one type to another using LLMs to maximize bug data utility.</p>
+                    
+                    <div class="p-5 bg-slate-950/50 rounded-2xl border border-white/5 space-y-4">
+                        <h4 class="text-xs font-bold text-indigo-400 uppercase tracking-widest lang-item" data-en="Workflow Detail" data-zh="核心工作流">Workflow Detail</h4>
+                        <ul class="text-[11px] space-y-3 text-slate-400 italic">
+                            <li class="flex items-start gap-2"><span class="text-indigo-400">●</span> <span class="lang-item" data-en="Extraction of core refactoring logic from existing failed cases." data-zh="从已知失败案例中提取核心重构逻辑与缺陷模式。">Extraction of core refactoring logic from existing failed cases.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-indigo-400">●</span> <span class="lang-item" data-en="LLM-based semantic mapping to migrate logic to new target types." data-zh="利用语义映射将 A 类缺陷自动迁移至 B 类测试程序中。">LLM-based semantic mapping to migrate logic to new target types.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-indigo-400">●</span> <span class="lang-item" data-en="Iterative program repair to ensure syntactic and semantic validity." data-zh="通过迭代修复确保迁移后的代码符合编译器规范与重构前置条件。">Iterative program repair to ensure syntactic and semantic validity.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 03 RelocTest Section -->
+        <div id="reloctest" class="relative grid grid-cols-1 lg:grid-cols-12 gap-10 p-10 rounded-[2.5rem] border border-white/5 bg-slate-900/40 backdrop-blur-md">
+            <div class="lg:col-span-4 space-y-8">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold uppercase tracking-widest mb-4 italic">Phase 03: Systematic Pruning</div>
+                    <h2 class="text-3xl font-black italic text-white lang-item leading-tight" data-en="RelocTest: Template Filtering" data-zh="RelocTest: 模板遍历与前置过滤">RelocTest: Template Filtering</h2>
+                </div>
+
+                <div class="space-y-6">
+                    <p class="text-slate-400 leading-relaxed italic text-sm text-justify lang-item" 
+                       data-en="Focusing on method relocation, RelocTest combines systematic skeleton traversal with automated precondition extraction to prune 90% of invalid search space." 
+                       data-zh="针对方法重定位重构，RelocTest 结合了 Java 语法骨架的系统性遍历与重构前置条件的自动化提取。在生成源头精准裁剪无效搜索空间。">Focusing on method relocation, RelocTest combines systematic skeleton traversal with automated precondition extraction to prune 90% of invalid search space.</p>
+
+                    <div class="p-5 bg-slate-950/50 rounded-2xl border border-white/5 space-y-4">
+                        <h4 class="text-xs font-bold text-emerald-500 uppercase tracking-widest lang-item" data-en="Workflow Detail" data-zh="核心工作流">Workflow Detail</h4>
+                        <ul class="text-[11px] space-y-3 text-slate-400 italic">
+                            <li class="flex items-start gap-2"><span class="text-emerald-400">●</span> <span class="lang-item" data-en="Grammar-based skeleton generation to cover diverse code structures." data-zh="基于 Java 语法规范批量生成多样化的程序结构骨架。">Grammar-based skeleton generation to cover diverse code structures.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-400">●</span> <span class="lang-item" data-en="Automated precondition extraction to filter out rejected programs." data-zh="自动化提取引擎实现逻辑，过滤不满足重构准则的骨架。">Automated precondition extraction to filter out rejected programs.</span></li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-400">●</span> <span class="lang-item" data-en="LLM filling to transform valid skeletons into executable tests." data-zh="利用大模型为合规骨架填充业务逻辑，生成高质量可执行程序。">LLM filling to transform valid skeletons into executable tests.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8">
+                <div class="relative rounded-2xl border border-white/10 bg-slate-950 p-2 shadow-2xl overflow-hidden h-full flex items-center justify-center group/img">
+                    <img src="./1ISSTA.png" alt="RelocTest" class="w-[85%] h-auto object-contain block group-hover:scale-[1.01] transition-transform duration-700">
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="py-12 border-t border-white/5 text-center">
+    <div class="text-slate-600 text-[10px] italic uppercase tracking-[0.4em] mb-4 lang-item" data-en="Advancing the Robustness of Software Evolution" data-zh="推动软件演化工具的稳健性">Advancing the Robustness of Software Evolution</div>
+    <div class="text-slate-800 text-[8px] uppercase tracking-widest">© 2024 RE-ENGINE PROJECT | BITSE LAB</div>
+</footer>
+
+<script>
+    // Initial state set to English
+    let currentLang = 'en';
+
+    function toggleLanguage() {
+        currentLang = (currentLang === 'zh') ? 'en' : 'zh';
+        
+        // Button label shows the OTHER language to switch to
+        document.getElementById('lang-label').innerText = (currentLang === 'zh') ? 'EN' : '中';
+
+        const items = document.querySelectorAll('.lang-item');
+        items.forEach(item => {
+            const text = item.getAttribute(`data-${currentLang}`);
+            if (text) item.innerText = text;
+        });
+    }
+</script>
+</body>
+</html>

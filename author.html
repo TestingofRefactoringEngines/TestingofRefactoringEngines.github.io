@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <title>Authors | RE-ENGINE</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .author-tab.active { @apply border-cyan-500 bg-cyan-500/10 text-cyan-400; box-shadow: 0 0 20px rgba(6, 182, 212, 0.1); }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200 antialiased">
+
+<!-- Navigation -->
+<nav class="fixed w-full z-[100] bg-slate-950/70 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
+        <!-- Left: LOGO -->
+        <div class="flex items-center gap-3 shrink-0">
+            <div class="w-8 h-8 bg-gradient-to-br from-cyan-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                <span class="text-slate-950 text-xl font-black italic tracking-tighter">T</span>
+            </div>
+            <div class="text-xl font-black tracking-tighter italic bg-gradient-to-r from-cyan-400 via-indigo-300 to-cyan-400 bg-clip-text text-transparent lang-item"
+                 data-en="Testing Refactoring Engines" data-zh="重构引擎自动化测试">
+                Testing Refactoring Engines
+            </div>
+        </div>
+        <!-- Center: Links -->
+        <div class="hidden lg:flex items-center space-x-8">
+            <a href="index.html" class="lang-item text-slate-300 hover:text-cyan-400 transition italic text-sm font-medium" data-en="Home" data-zh="首页">Home</a>
+            <a href="methodology.html" class="lang-item text-slate-300 hover:text-cyan-400 transition italic text-sm font-medium" data-en="Methodology" data-zh="方法论">Methodology</a>
+            <a href="bugs.html" class="lang-item text-slate-300 hover:text-cyan-400 transition italic text-sm font-medium" data-en="Bugs" data-zh="缺陷展示">Bugs</a>
+            <a href="impact.html" class="lang-item text-slate-300 hover:text-cyan-400 transition italic text-sm font-medium" data-en="Impact" data-zh="影响力">Impact</a>
+            <a href="author.html" class="lang-item text-cyan-400 transition italic text-sm font-medium underline underline-offset-8" data-en="Author" data-zh="关于作者">Author</a>
+        </div>
+        <!-- Right: Buttons -->
+        <div class="flex items-center gap-8 shrink-0">
+            <a href="papers.html" class="group relative px-6 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-bold rounded-full transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.3)] overflow-hidden">
+                <span class="relative z-10 italic lang-item" data-en="View Papers" data-zh="查看论文">View Papers</span>
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+            </a>
+            <button id="lang-btn" onclick="toggleLanguage()" class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-all group">
+                <svg class="w-4 h-4 text-cyan-400 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+                </svg>
+                <span class="text-[10px] font-bold tracking-widest uppercase text-slate-300" id="lang-label">中</span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<div class="flex pt-20 min-h-screen">
+    <!-- [Left] Author Switcher -->
+    <div class="w-20 md:w-64 border-r border-slate-800 bg-slate-950/50 flex flex-col items-center py-10 space-y-4 fixed h-full overflow-y-auto no-scrollbar">
+        <div class="text-[10px] uppercase tracking-widest text-slate-500 mb-6 hidden md:block italic lang-item" data-en="Research Team" data-zh="研究团队">Research Team</div>
+        <div id="author-selector" class="space-y-4 w-full px-4"></div>
+    </div>
+
+    <!-- [Right] Content Area -->
+    <main class="flex-1 ml-20 md:ml-64">
+        <section id="content-wrapper" class="pt-16 pb-20 px-6 max-w-5xl mx-auto fade-in">
+            <div class="flex flex-col md:flex-row gap-12">
+                <!-- Profile Column -->
+                <div class="md:w-1/3 text-center md:text-left">
+                    <div class="relative inline-block group">
+                        <div class="w-48 h-48 rounded-2xl bg-gradient-to-br from-cyan-500 to-indigo-600 p-1 mb-6 shadow-xl">
+                            <div class="w-full h-full rounded-xl bg-slate-900 flex items-center justify-center overflow-hidden">
+                                <span id="display-initials" class="text-5xl font-bold text-slate-700 italic"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <h1 id="display-name" class="text-3xl font-extrabold mb-2 tracking-tight italic text-white"></h1>
+                    <p id="display-title" class="text-cyan-400 font-medium mb-6 italic text-sm"></p>
+                    <div class="space-y-4 text-sm text-slate-400">
+                        <div id="display-loc" class="flex items-center gap-3 justify-center md:justify-start italic"></div>
+                        <div id="display-email" class="flex items-center gap-3 justify-center md:justify-start italic font-mono"></div>
+                        <div class="pt-4 flex justify-center md:justify-start gap-4">
+                            <a id="display-url" href="#" target="_blank" class="px-4 py-2 bg-slate-900 rounded-lg hover:bg-slate-800 border border-slate-800 transition text-xs italic text-cyan-400">Personal Website</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Column -->
+                <div class="md:w-2/3 space-y-12">
+                    <div>
+                        <h2 class="text-xl font-bold mb-4 flex items-center gap-2 italic text-slate-100 lang-item" data-en="Biography" data-zh="个人简介">Biography</h2>
+                        <p id="display-bio" class="text-slate-400 leading-relaxed italic text-sm text-justify"></p>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold mb-4 flex items-center gap-2 italic text-slate-100 lang-item" data-en="Research Interests" data-zh="研究兴趣">Research Interests</h2>
+                        <div id="display-interests" class="flex flex-wrap gap-3"></div>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold mb-6 flex items-center gap-2 italic text-slate-100 lang-item" data-en="Selected Publications" data-zh="发表论文">Selected Publications</h2>
+                        <div id="display-papers" class="space-y-6"></div>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold mb-6 flex items-center gap-2 italic text-slate-100 lang-item" data-en="Education" data-zh="Education">Education</h2>
+                        <div id="display-edu" class="border-l border-slate-800 ml-3 space-y-8"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<footer class="py-12 border-t border-slate-900 text-center relative z-10 bg-slate-950">
+    <div class="text-slate-600 text-[10px] italic uppercase tracking-widest lang-item" data-en="Innovating Software Reliability through AI" data-zh="利用人工智能创新软件可靠性">Innovating Software Reliability through AI</div>
+</footer>
+
+<script>
+    // Initial state set to English
+    let currentLang = 'en';
+    let currentAuthorId = 'dong';
+
+    const teamData = {
+        "dong": {
+            initials: "DH",
+            email: "chunhao.dong@bit.edu.cn",
+            url: "https://github.com/RE-ENGINE",
+            zh: {
+                name: "东春浩",
+                title: "博士研究生",
+                loc: "📍 北京理工大学计算机学院",
+                bio: "本人目前于北京理工大学计算机学院攻读博士学位，师从刘辉教授和张杨教授。主要研究方向为自动化软件测试、程序分析以及大语言模型（LLM）在软件工程中的应用。致力于利用人工智能技术解决传统代码重构工具中的可靠性瓶颈，研究成果已在ICSE、FSE、ISSTA等国际顶级会议发表，并协助 JetBrains、Eclipse 等厂商修复了大量核心引擎缺陷。",
+                interests: ["软件测试", "程序分析", "大语言模型 (LLM4SE)", "重构可靠性"],
+                papers: [
+                    { conf: "ICSE 2024", title: "Context-Aware Name Recommendation for Field Renaming" },
+                    { conf: "ICSE 2025", title: "ChatGPT-Based Test Generation for Refactoring Engines Enhanced by Feature Analysis on Examples" },
+                    { conf: "FSE 2026", title: "Cross-Refactoring-Type Test Program Migration for Refactoring Engines" },
+                    { conf: "ISSTA 2026", title: "Testing Method Relocation Algorithms via Template-Based Systematic Structural Traversal and Precondition Filtering" }
+                ],
+                edu: [
+                    { school: "北京理工大学", degree: "博士", time: "2022 - 至今", active: true },
+                    { school: "河北科技大学", degree: "硕士", time: "2019 - 2022", active: false },
+                    { school: "河北经贸大学", degree: "学士", time: "2015 - 2019", active: false }
+                ]
+            },
+            en: {
+                name: "Chunhao Dong",
+                title: "Ph.D. Candidate",
+                loc: "📍 School of CS, BIT",
+                bio: "Chunhao is currently a Ph.D. candidate at the School of Computer Science, BIT, advised by Prof. Hui Liu and Prof. Yang Zhang. His research interests include automated software testing, program analysis, and LLM4SE. He focuses on overcoming reliability bottlenecks in traditional refactoring tools using AI. His work has been published in ICSE, FSE, and ISSTA, and has helped vendors like JetBrains and Eclipse fix numerous engine defects.",
+                interests: ["Software Testing", "Program Analysis", "LLM4SE", "Refactoring Reliability"],
+                papers: [
+                    { conf: "ICSE 2024", title: "Context-Aware Name Recommendation for Field Renaming" },
+                    { conf: "ICSE 2025", title: "ChatGPT-Based Test Generation for Refactoring Engines Enhanced by Feature Analysis on Examples" },
+                    { conf: "FSE 2026", title: "Cross-Refactoring-Type Test Program Migration for Refactoring Engines" },
+                    { conf: "ISSTA 2026", title: "Testing Method Relocation Algorithms via Template-Based Systematic Structural Traversal and Precondition Filtering" }
+                ],
+                edu: [
+                    { school: "Beijing Institute of Technology", degree: "Ph.D.", time: "2022 - Present", active: true },
+                    { school: "Hebei Univ of Sci & Tech", degree: "Master", time: "2019 - 2022", active: false },
+                    { school: "Hebei Univ of Econ & Business", degree: "Bachelor", time: "2015 - 2019", active: false }
+                ]
+            }
+        },
+        "jiang": {
+            initials: "YJ",
+            email: "yanjie.jiang@tju.edu.cn",
+            url: "https://jiangyanjie.github.io/index.html",
+            zh: {
+                name: "姜艳杰",
+                title: "英才副教授 / 博士生导师",
+                loc: "📍 天津大学智能与计算学部",
+                bio: "2025年6月加入软件分析与智能实验室。北京大学博士后出站，北京理工大学博士，曾在美国UIUC访学。研究方向包括大语言模型、智能软件开发及安全。在CCF-A类顶级期刊/会议发表论文30余篇，获CCF科学技术奖、ACM SIGSOFT杰出论文奖及百度学术新星奖。主持国家自然科学基金等项目。",
+                interests: ["大语言模型", "智能软件开发", "软件安全", "隐私保护"],
+                papers: [
+                    { conf: "TSE 2026", title: "A Cross-Language Approach to Recommending Method Names..." },
+                    { conf: "ICSE 2026", title: "LLM-based API Argument Completion with Knowledge-Augmented Prompts" },
+                    { conf: "FSE 2026", title: "Cross-Refactoring-Type Test Program Migration for Refactoring Engines" }
+                ],
+                edu: [
+                    { school: "北京大学", degree: "博士后", time: "2023 - 2025", active: false },
+                    { school: "北京理工大学", degree: "博士", time: "2018 - 2023", active: false },
+                    { school: "UIUC", degree: "访学", time: "2019 - 2020", active: false }
+                ]
+            },
+            en: {
+                name: "Yanjie Jiang",
+                title: "Associate Professor / Ph.D. Advisor",
+                loc: "📍 College of Intelligence and Computing, TJU",
+                bio: "Joined Tianjin University in 2025. Previously a postdoctoral fellow at Peking University and a visitor at UIUC. Research focuses on LLMs, intelligent software development, and security. Published over 30 papers in CCF-A venues. Recipient of CCF Science & Tech Award and ACM SIGSOFT Distinguished Paper Award.",
+                interests: ["LLMs", "Intelligent Software Dev", "Software Security", "Privacy Protection"],
+                papers: [
+                    { conf: "TSE 2026", title: "A Cross-Language Approach to Recommending Method Names..." },
+                    { conf: "ICSE 2026", title: "LLM-based API Argument Completion with Knowledge-Augmented Prompts" },
+                    { conf: "FSE 2026", title: "Cross-Refactoring-Type Test Program Migration for Refactoring Engines" }
+                ],
+                edu: [
+                    { school: "Peking University", degree: "Postdoc", time: "2023 - 2025", active: false },
+                    { school: "Beijing Institute of Technology", degree: "Ph.D.", time: "2018 - 2023", active: false },
+                    { school: "UIUC", degree: "Visiting Scholar", time: "2019 - 2020", active: false }
+                ]
+            }
+        },
+        "zhang_yang": {
+            initials: "YZ",
+            email: "yang.zhang@hebust.edu.cn",
+            url: "https://xxxy.web.hebust.edu.cn/szdw/ssjy/zhangyang.htm",
+            zh: {
+                name: "张杨",
+                title: "教授 / 牧星学者 / 博导",
+                loc: "📍 河北科技大学",
+                bio: "博士，教授，中国计算机学会(CCF)杰出会员，曾任美国普渡大学访问学者。主持国家自然科学基金、河北省自然科学基金等项目，发表论文100余篇。主要研究兴趣包括智能化软件工程、高性能计算和高可信软件。",
+                interests: ["智能化软件工程", "人工智能", "高性能计算", "高可信软件"],
+                papers: [
+                    { conf: "ESWA 2025", title: "FeatureX: An Explainable Feature Selection for Deep Learning" },
+                    { conf: "ICSE 2025", title: "ChatGPT-Based Test Generation for Refactoring Engines..." },
+                    { conf: "Information Sciences 2025", title: "Move Method Refactoring Recommendation based on LLM" }
+                ],
+                edu: [
+                    { school: "北京理工大学", degree: "博士", time: "2009 - 2013", active: false },
+                    { school: "普渡大学", degree: "访问学者", time: "2016 - 2017", active: false }
+                ]
+            },
+            en: {
+                name: "Yang Zhang",
+                title: "Professor / Muxing Scholar",
+                loc: "📍 Hebei University of Science and Technology",
+                bio: "Ph.D., Professor, CCF Distinguished Member. Former visiting scholar at Purdue University. Leading over 100 publications and projects funded by NSFC. Research interests include Intelligent SE, High Performance Computing, and Trusted Software.",
+                interests: ["Intelligent SE", "AI", "HPC", "Trusted Software"],
+                papers: [
+                    { conf: "ESWA 2025", title: "FeatureX: An Explainable Feature Selection for Deep Learning" },
+                    { conf: "ICSE 2025", title: "ChatGPT-Based Test Generation for Refactoring Engines..." },
+                    { conf: "Information Sciences 2025", title: "Move Method Refactoring Recommendation based on LLM" }
+                ],
+                edu: [
+                    { school: "Beijing Institute of Technology", degree: "Ph.D.", time: "2009 - 2013", active: false },
+                    { school: "Purdue University", degree: "Visiting Scholar", time: "2016 - 2017", active: false }
+                ]
+            }
+        },
+        "zhang_yuxia": {
+            initials: "YX",
+            email: "yuxiazhang@bit.edu.cn",
+            url: "https://yuxiazhang-bit.github.io/index.html",
+            zh: {
+                name: "张宇霞",
+                title: "长聘副教授 / 博士生导师",
+                loc: "📍 北京理工大学计算机学院",
+                bio: "CCF软件工程专委会执行委员。研究领域为可持续开源软件生态、实证软件工程、智能化软件开发。在ICSE、FSE、TSE等发表论文30余篇。获ICSE 2022、FSE 2023杰出论文奖，入选中国科协青年人才托举项目。",
+                interests: ["开源软件生态", "实证软件工程", "智能化软件开发"],
+                papers: [
+                    { conf: "FSE 2025", title: "Who Will Stop Contributing to OSS Projects?" },
+                    { conf: "FSE 2025", title: "Core Developer Turnover in the Rust Package Ecosystem" },
+                    { conf: "ICSE 2025", title: "A First Look at Conventional Commits Classification" }
+                ],
+                edu: [
+                    { school: "北京理工大学", degree: "副教授", time: "2023 - 至今", active: true }
+                ]
+            },
+            en: {
+                name: "Yuxia Zhang",
+                title: "Associate Professor / Ph.D. Advisor",
+                loc: "📍 School of CS, BIT",
+                bio: "Executive member of CCF SE committee. Research focuses on sustainable OSS ecosystems and empirical software engineering. Recipient of ICSE 2022 and FSE 2023 Distinguished Paper Awards.",
+                interests: ["OSS Ecosystems", "Empirical SE", "Intelligent Software Dev"],
+                papers: [
+                    { conf: "FSE 2025", title: "Who Will Stop Contributing to OSS Projects?" },
+                    { conf: "FSE 2025", title: "Core Developer Turnover in the Rust Package Ecosystem" },
+                    { conf: "ICSE 2025", title: "A First Look at Conventional Commits Classification" }
+                ],
+                edu: [
+                    { school: "Beijing Institute of Technology", degree: "Associate Professor", time: "2023 - Present", active: true }
+                ]
+            }
+        },
+        "liu": {
+            initials: "HL",
+            email: "hui.liu@bit.edu.cn",
+            url: "https://liuhuigmail.github.io/",
+            zh: {
+                name: "刘辉",
+                title: "教授 / 博士生导师",
+                loc: "📍 北京理工大学计算机学院",
+                bio: "北京理工大学计算机学院教授，北京大学博士。主要研究兴趣包括基于AI的软件开发（特别是LLM生成的程序）、LLM评估测试、软件重构、软件质量及自动化数据集构建。主持多项国家自然科学基金和国家重点研发计划。",
+                interests: ["代码生成 (LLM)", "大模型评估", "软件重构", "软件质量"],
+                papers: [
+                    { conf: "TOSEM 2024", title: "Recommending Variable Names for Extract Local Variable Refactorings" },
+                    { conf: "ASE 2024", title: "A Position-Aware Approach to Decomposing God Classes" },
+                    { conf: "TOSEM 2025", title: "Relationship Between Defects and Source Code's Unnaturalness" }
+                ],
+                edu: [
+                    { school: "北京大学", degree: "博士", time: "2004 - 2008", active: false },
+                    { school: "北京理工大学", degree: "教授", time: "2010 - 至今", active: true }
+                ]
+            },
+            en: {
+                name: "Hui Liu",
+                title: "Professor / Ph.D. Advisor",
+                loc: "📍 School of CS, BIT",
+                bio: "Professor at BIT, Ph.D. from Peking University. Research interests include AI-based software development (especially LLM-based generation), software refactoring, and quality testing. Funded by NSFC and National Key R&D Programs.",
+                interests: ["LLM-based Generation", "LLM Evaluation", "Refactoring", "Software Quality"],
+                papers: [
+                    { conf: "TOSEM 2024", title: "Recommending Variable Names for Extract Local Variable Refactorings" },
+                    { conf: "ASE 2024", title: "A Position-Aware Approach to Decomposing God Classes" },
+                    { conf: "TOSEM 2025", title: "Relationship Between Defects and Source Code's Unnaturalness" }
+                ],
+                edu: [
+                    { school: "Peking University", degree: "Ph.D.", time: "2004 - 2008", active: false },
+                    { school: "BIT", degree: "Professor", time: "2010 - Present", active: true }
+                ]
+            }
+        }
+    };
+
+    function toggleLanguage() {
+        currentLang = (currentLang === 'zh') ? 'en' : 'zh';
+        document.getElementById('lang-label').innerText = (currentLang === 'zh') ? 'EN' : '中';
+
+        document.querySelectorAll('.lang-item').forEach(item => {
+            const text = item.getAttribute(`data-${currentLang}`);
+            if (text) item.innerText = text;
+        });
+
+        initSelector();
+        switchAuthor(currentAuthorId);
+    }
+
+    function switchAuthor(id) {
+        currentAuthorId = id;
+        const data = teamData[id][currentLang]; 
+        
+        document.querySelectorAll('.author-tab').forEach(el => el.classList.remove('active'));
+        const activeTab = document.getElementById(`tab-${id}`);
+        if(activeTab) activeTab.classList.add('active');
+        
+        const wrapper = document.getElementById('content-wrapper');
+        wrapper.classList.remove('fade-in');
+        void wrapper.offsetWidth; 
+        wrapper.classList.add('fade-in');
+
+        document.getElementById('display-name').innerText = data.name;
+        document.getElementById('display-initials').innerText = teamData[id].initials;
+        document.getElementById('display-title').innerText = data.title;
+        document.getElementById('display-loc').innerText = data.loc;
+        document.getElementById('display-email').innerText = `✉️ ${teamData[id].email}`;
+        document.getElementById('display-bio').innerText = data.bio;
+        document.getElementById('display-url').href = teamData[id].url;
+
+        document.getElementById('display-interests').innerHTML = data.interests.map(i => 
+            `<span class="px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-xs text-cyan-400 italic font-medium">${i}</span>`
+        ).join('');
+
+        document.getElementById('display-papers').innerHTML = data.papers.map(p => `
+            <div class="group">
+                <div class="text-[10px] font-mono text-slate-500 mb-1 tracking-widest">${p.conf}</div>
+                <h4 class="font-bold text-slate-200 group-hover:text-cyan-400 transition italic tracking-tight text-sm leading-snug">${p.title}</h4>
+            </div>
+        `).join('');
+
+        document.getElementById('display-edu').innerHTML = data.edu.map(e => `
+            <div class="relative pl-8">
+                <div class="absolute left-[-5px] top-1 w-2 h-2 ${e.active ? 'bg-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.5)]' : 'bg-slate-700'} rounded-full"></div>
+                <div class="text-sm font-bold italic text-slate-200">${e.school}</div>
+                <div class="text-[11px] text-slate-500 italic">${e.degree} | ${e.time}</div>
+            </div>
+        `).join('');
+    }
+
+    function initSelector() {
+        const container = document.getElementById('author-selector');
+        container.innerHTML = Object.keys(teamData).map(id => {
+            const person = teamData[id][currentLang];
+            return `
+            <button id="tab-${id}" onclick="switchAuthor('${id}')" class="author-tab w-full flex items-center gap-3 p-3 rounded-xl border border-slate-800 transition-all duration-300 group ${id === currentAuthorId ? 'active' : ''}">
+                <div class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center font-bold text-xs italic group-hover:bg-cyan-500 group-hover:text-slate-900 transition-colors">${teamData[id].initials}</div>
+                <div class="hidden md:block text-left">
+                    <div class="text-xs font-bold italic">${person.name}</div>
+                    <div class="text-[9px] text-slate-500 italic tracking-tighter">${person.title.split(' / ')[0]}</div>
+                </div>
+            </button>
+        `}).join('');
+    }
+
+    window.onload = () => {
+        initSelector();
+        switchAuthor('dong');
+    };
+</script>
+</body>
+</html>

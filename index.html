@@ -1,64 +1,161 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>表格示例</title>
+    <title>Testing Refactoring Engines | RE-ENGINE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
-        table {
-            width: 50%;
-            border-collapse: collapse;
-            margin: 20px 0;
+        body { font-family: 'Inter', sans-serif; background-color: #020617; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        
+        /* 科技感渐变文字 */
+        .gradient-text {
+            background: linear-gradient(135deg, #22d3ee 0%, #818cf8 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
+
+        /* 玻璃拟态卡片 */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
         }
-        th {
-            background-color: #f2f2f2;
-            text-align: center;
+        .glass-card:hover {
+            border-color: rgba(34, 211, 238, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
+
+        /* 动态背景光晕 */
+        .glow-sphere {
+            position: absolute;
+            filter: blur(100px);
+            border-radius: 50%;
+            z-index: 0;
+            opacity: 0.15;
         }
-        tr:hover {
-            background-color: #f1f1f1;
+
+        /* 自定义网格背景 */
+        .bg-grid-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
         }
     </style>
 </head>
-<body>
-    <h1>Testing of Refactoring Engines </h1>
-    <table id="tab" border="1" cellpadding="5">
-        <tr><th rowspan="2"></th> <th rowspan="2">Refactoring Types</th> <th colspan="2"><a href="http://www.eclipse.org/jdt/">Eclipse</a> 4.33.0</th> <th colspan="2"><a href="http://netbeans.org/">NetBeans</a> 25<br/></th> <th colspan="2"><a href="http://www.jetbrains.com/idea/">IntelliJ</a> 2024.2.4<br/></th></tr>
-<tr> <th>bug id</th> <th>bug status</th> <th>bug id</th> <th>bug status</th><th>bug id</th> <th>bug status</th></tr>
-        <tr><td align="right">1.</td> <td>MoveField</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/1746">1746</a></td> <td align="center">no-assigned</td> <td align="center">-</td><td align="center">Yes</td><td align="center">-</td><td align="center">-</td></tr>
-        <tr><td align="right">2.</td> <td>MoveField</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/1745">1745</a></td> <td align="center">no-assigned</td> <td align="center">-</td><td align="center">Yes</td> <td align="center">-</td><td align="center">-</td></tr>
-        <tr><td align="right">3.</td> <td>MoveField</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/1744">1744</a></td> <td align="center">no-assigned</td> <td align="center">-</td><td align="center">Yes</td> <td align="center">-</td><td align="center">-</td></tr>
-<tr><td align="right">4.</td> <td>PullDownField</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/1738">1738</a></td> <td align="center">no-assigned</td> <td align="center"><a href="https://github.com/apache/netbeans/issues/8301">8301</td><td align="center">no-assigned</td> <td align="center">-</td><td align="center">-</td></tr>
-<tr><td align="right">5.</td> <td>MoveClass</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/1737">1737</a></td> <td align="center">confirmed</td> <td align="center">-</td><td align="center">Yes</td> <td align="center">-</td><td align="center">-</td></tr>
-<tr><td align="right">6.</td> <td>MoveClass</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/1743">1743</a></td> <td align="center">no-assigned</td><td align="center">-</td> <td align="center">Yes</td><td align="center">-</td> <td align="center">-</td></tr>
-        <tr><td align="right">7.</td> <td>MoveMethod</td> <td align="center">-</td> <td align="center">-</td> <td align="center">-</td><td align="center">Yes</td><td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-361683/Move-method-refactoring-causes-syntax-error">361683</a></td> <td align="center">confirmed</td></tr>
-        <tr><td align="right">8.</td> <td>MoveMethod</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/1865">1865</a></td> <td align="center">fixed</td> <td align="center"><a href="https://github.com/apache/netbeans/issues/8300">8300</td><td align="center">no-assigned</td><td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-361686/Move-method-refactoring-causes-the-method-call-relationship-to-change">361686</a></td> <td align="center">confirmed</td></tr>
-        <tr><td align="right">9.</td> <td>MoveMethod</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/1866">1866</a></td> <td align="center">no-assigned</td> <td align="center">-</td><td align="center">Yes</td><td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-361687/Move-method-refactoring-causes-compilation-errors-in-static-methods">361687</a></td> <td align="center">confirmed</td></tr>
-        <tr><td align="right">10.</td> <td>MoveMethod</td> <td align="center">-</td> <td align="center">-</td> <td align="center">-</td><td align="center">Yes</td><td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-361688/Move-method-refactoring-Access-errors-occur-when-the-move-method-refactoring-is-moved-to-the-interface">361688</a></td> <td align="center">confirmed</td></tr>
-        <tr><td align="right">11.</td> <td>MoveMethod</td> <td align="center">-</td> <td align="center">-</td> <td align="center">-</td>-<td align="center">-</td><td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-361689/Move-method-refactoring-The-super-keyword-causes-a-syntax-error">361689</a></td> <td align="center">confirmed</td></tr>
-        <tr><td align="right">12.</td> <td>ExtractMethod</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/1757">1757</a><td align="center">fixed</td> <td align="center"><a href="https://github.com/apache/netbeans/issues/8305">8305</td><td align="center">no-assigned</td><td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-361729/Extract-method-refactoring-causes-the-call-relationship-to-change">361729</a></td> <td align="center">confirmed</td></tr>
-        <tr><td align="right">13.</td> <td>ExtractMethod</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/1758">1758</a></td> <td align="center">fixed</td> <td align="center">-</td><td align="center">Yes</td><td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-361730/Extract-method-refactoring-Internal-class-method-call-changes">361730</a></td> <td align="center">confirmed</td></tr>
-        <tr><td align="right">14.</td> <td>InlineMethod</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/1748">1748</a></td> <td align="center">no-assigned</td> <td align="center">-</td><td align="center">Yes</td><td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-361732/Inline-method-refactoring-causes-method-calls-to-change">361732</a></td> <td align="center">confirmed</td></tr>
-        <tr><td align="right">15.</td> <td>RenameField</td> <td align="center">-</td> <td align="center">-</td> <td align="center">-</td><td align="center">Yes</td><td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-361733/Rename-field-refactoring-The-behavior-of-the-assignment-statement-changes">361733</a></td> <td align="center">confirmed</td></tr>
-        <tr><td align="right">16.</td> <td>PullDownMethod</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/1755">1755</a></td> <td align="center">not-supported</td> <td align="center">-</td><td align="center">Yes</td><td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-361735/Pull-down-refactoring-Code-behavior-errors-due-to-reflection">361735</a></td> <td align="center">confirmed</td></tr>
-        <tr><td align="right">17.</td> <td>PullDownMethod</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/1756">1756</a></td> <td align="center">confirmed</td> <td align="center"><a href="https://github.com/apache/netbeans/issues/8306">8306</td><td align="center">no-assigned</td><td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-361736/Pull-down-refactoringchanges-the-method-call-relationship.">361736</a></td> <td align="center">confirmed</td></tr>
-        <tr><td align="right">18.</td> <td>ChangeMethodSignature</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/1749">1749</a></td> <td align="center">not-supported</td> <td align="center">-</td><td align="center">Yes</td><td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-361738/Change-Method-Signature-refactoringReflection-causes-code-behavior-changes">361738</a></td> <td align="center">confirmed</td></tr>
-        <tr><td align="right">19.</td> <td>ChangeMethodSignature</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/1750">1750</a></td> <td align="center">fixed</td> <td align="center">-</td><td align="center">Yes</td><td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-361739/Change-Method-Signature-refactoring-causing-the-method-call-change">361739</a></td> <td align="center">confirmed</td></tr>
-        <tr><td align="right">20.</td> <td>ChangeMethodSignature</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/1751">1751</a></td> <td align="center">fixed</td> <td align="center">-</td><td align="center">Yes</td><td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-361740/Change-Method-Signature-refactoring-Causes-method-recursion">361740</a></td> <td align="center">confirmed</td></tr>
-        <tr><td align="right">21.</td> <td>ChangeMethodSignature</td> <td align="center">-</td> <td align="center">-</td> <td align="center">-</td><td align="center">Yes</td><td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-361741/Change-method-signature-refactoring-causes-static-method-compilation-error">361741</a></td> <td align="center">confirmed</td></tr>
-        <tr><td align="right">22.</td> <td>PullUpMethod</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/1871">1871</a></td> <td align="center">no-assigned</td> <td align="center">-</td><td align="center">Yes</td><td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-361742/Pull-up-method-refactoring-Code-behavior-changes-due-to-reflection">361742</a></td> <td align="center">confirmed</td></tr>
-        <tr><td align="right">23.</td> <td>PullUpMethod</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/1870">1870</a></td> <td align="center">no-assigned</td> <td align="center">-</td><td align="center">Yes</td><td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-361743/Pull-up-method-refactoring-The-method-call-relationship-has-changed">361743</a></td> <td align="center">confirmed</td></tr>
-        <tr><td align="right">24.</td> <td>PullUpMethod</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/1869">1869</a></td> <td align="center">no-assigned</td> <td align="center">-</td><td align="center">Yes</td><td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-361746/Pull-up-method-refactoring-Behavior-changes-in-inheritance-relationships">361746</a></td> <td align="center">confirmed</td></tr>
-        <tr><td align="right">25.</td> <td>PullUpMethod</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/1868">1868</a></td> <td align="center">no-assigned</td> <td align="center">-</td><td align="center">Yes</td><td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-361747/pull-up-method-refactoring-code-compilation-errors">361747</a></td> <td align="center">confirmed</td></tr>
-        <tr><td align="right">26.</td> <td>PullUpMethod</td> <td align="center"><a href="https://github.com/eclipse-jdt/eclipse.jdt.ui/issues/1867">1867</a></td> <td align="center">no-assigned</td> <td align="center">-</td><td align="center">Yes</td><td align="center"><a href="https://youtrack.jetbrains.com/issue/IDEA-361748/pull-up-method-refactoring-causes-compilation-error-for-calling-methods">361748</a></td> <td align="center">confirmed</td></tr>
-        <tr><td align="right">27.</td> <td>InlineField</td> <td align="center">-</td> <td align="center">-</td><td align="center">-</td> <td align="center">Yes</td><td align="center">-</td> <td align="center">-</td></tr>
-        <tr><td align="right">28.</td> <td>InlineField</td> <td align="center">-</td> <td align="center">-</td> <td align="center">-</td><td align="center">Yes</td><td align="center">-</td> <td align="center">-</td></tr>
-    </table>
+<body class="text-slate-200 antialiased bg-grid-pattern">
+
+<!-- 导航栏 -->
+<nav class="fixed w-full z-[100] bg-slate-950/70 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
+        
+        <!-- 左侧：LOGO -->
+        <div class="flex items-center gap-3 shrink-0">
+            <div class="w-8 h-8 bg-gradient-to-br from-cyan-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                <span class="text-slate-950 text-xl font-black italic tracking-tighter">T</span>
+            </div>
+            <div class="text-xl font-black tracking-tighter italic bg-gradient-to-r from-cyan-400 via-indigo-300 to-cyan-400 bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text lang-item"
+                 data-en="Testing Refactoring Engines" data-zh="重构引擎自动化测试">
+                Testing Refactoring Engines
+            </div>
+        </div>
+
+        <!-- 中间：导航链接 -->
+        <div class="hidden lg:flex items-center space-x-10">
+            <a href="index.html" class="lang-item text-slate-400 hover:text-cyan-400 transition italic text-sm font-semibold tracking-wide" data-en="Home" data-zh="首页">Home</a>
+            <a href="methodology.html" class="lang-item text-slate-400 hover:text-cyan-400 transition italic text-sm font-semibold tracking-wide" data-en="Methodology" data-zh="方法论">Methodology</a>
+            <a href="bugs.html" class="lang-item text-slate-400 hover:text-cyan-400 transition italic text-sm font-semibold tracking-wide" data-en="Bugs" data-zh="缺陷展示">Bugs</a>
+            <a href="impact.html" class="lang-item text-slate-400 hover:text-cyan-400 transition italic text-sm font-semibold tracking-wide" data-en="Impact" data-zh="影响力">Impact</a>
+            <a href="author.html" class="lang-item text-slate-400 hover:text-cyan-400 transition italic text-sm font-semibold tracking-wide" data-en="Author" data-zh="关于作者">Author</a>
+        </div>
+
+        <!-- 右侧：按钮组 -->
+        <div class="flex items-center gap-8 shrink-0">
+            <a href="papers.html" class="group relative px-6 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-bold rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.3)] overflow-hidden">
+                <span class="relative z-10 italic lang-item" data-en="View Papers" data-zh="查看论文">View Papers</span>
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+            </a>
+            <button id="lang-btn" onclick="toggleLanguage()" class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-all group">
+                <svg class="w-4 h-4 text-cyan-400 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+                </svg>
+                <span class="text-[10px] font-bold tracking-widest uppercase text-slate-300" id="lang-label">中</span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section id="home" class="relative pt-48 pb-32 flex flex-col items-center justify-center overflow-hidden">
+    <!-- 背景光晕装饰 -->
+    <div class="glow-sphere w-[500px] h-[500px] bg-cyan-500 top-[-100px] left-[-100px]"></div>
+    <div class="glow-sphere w-[600px] h-[600px] bg-indigo-600 bottom-[-200px] right-[-100px]"></div>
+
+    <div class="max-w-5xl mx-auto px-6 relative z-10 text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-8 animate-bounce">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee]"></span>
+            <span class="text-[10px] font-bold tracking-[0.2em] text-slate-400 uppercase italic lang-item" data-en="Pioneering LLM-Driven Testing" data-zh="开创性的大模型驱动测试">Pioneering LLM-Driven Testing</span>
+        </div>
+        
+        <h1 class="text-6xl md:text-8xl font-black mb-8 tracking-tighter leading-none italic">
+            <span class="block text-white lang-item" data-zh="让重构引擎更可靠" data-en="Robust Refactoring">Robust Refactoring</span>
+            <span class="gradient-text lang-item" data-zh="由大语言模型驱动" data-en="AI-Powered Evolution">AI-Powered Evolution</span>
+        </h1>
+        
+        <p class="text-slate-400 max-w-3xl mx-auto text-lg md:text-xl mb-16 leading-relaxed italic lang-item" 
+           data-zh="利用 LLM 的集体智慧，系统性地挖掘了现代集成开发环境（IDE）中隐藏的逻辑裂缝，确保每一次代码演进都安全无虞。" 
+           data-en="Leveraging the collective intelligence of LLMs to systematically uncover logical flaws in modern IDEs, ensuring every code evolution remains secure.">
+            Leveraging the collective intelligence of LLMs to systematically uncover logical flaws in modern IDEs, ensuring every code evolution remains secure.
+        </p>
+        
+        <!-- 核心战绩：卡片居中 -->
+        <div class="flex flex-wrap justify-center gap-6 max-w-5xl mx-auto">
+            <div class="glass-card w-48 p-8 rounded-[2rem] text-center">
+                <div class="text-5xl font-black text-cyan-400 mb-2 italic tracking-tighter">200+</div>
+                <div class="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold lang-item" data-zh="发现未知缺陷" data-en="Bugs Detected">Bugs Detected</div>
+            </div>
+            <div class="glass-card w-48 p-8 rounded-[2rem] text-center">
+                <div class="text-5xl font-black text-indigo-400 mb-2 italic tracking-tighter">100+</div>
+                <div class="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold lang-item" data-zh="厂商官方确认" data-en="Vendor Confirmed">Vendor Confirmed</div>
+            </div>
+            <div class="glass-card w-48 p-8 rounded-[2rem] text-center border-cyan-500/20">
+                <div class="text-5xl font-black text-white mb-2 italic tracking-tighter">07</div>
+                <div class="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold lang-item" data-zh="主流引擎覆盖" data-en="Engines Covered">Engines Covered</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 页脚 -->
+<footer class="py-24 border-t border-white/5 text-center">
+    <div class="max-w-4xl mx-auto px-6">
+        <div class="text-slate-600 text-xs tracking-[0.3em] uppercase italic mb-6 lang-item" data-en="Advancing Software Evolution Robustness" data-zh="提升软件演化系统的鲁棒性">Advancing Software Evolution Robustness</div>
+        <div class="text-slate-500 text-[11px] italic lang-item" 
+             data-zh="&copy; 2026 基于大语言模型的重构引擎测试方法研究. BITSE 实验室版权所有." 
+             data-en="&copy; 2026 Research on Refactoring Testing via LLMs. BITSE Lab.">
+            &copy; 2026 Research on Refactoring Testing via LLMs. BITSE Lab.
+        </div>
+    </div>
+</footer>
+
+<script>
+    let currentLang = 'en'; 
+
+    function toggleLanguage() {
+        currentLang = (currentLang === 'zh') ? 'en' : 'zh';
+        document.getElementById('lang-label').innerText = (currentLang === 'zh') ? 'EN' : '中';
+
+        const items = document.querySelectorAll('.lang-item');
+        items.forEach(item => {
+            const text = item.getAttribute(`data-${currentLang}`);
+            if (text) {
+                item.innerText = text;
+            }
+        });
+    }
+</script>
 </body>
 </html>
